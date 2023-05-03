@@ -35,8 +35,8 @@ type EditTagsModalProps = {
   availableTags: Tag[];
   show: boolean;
   handleClose: () => void;
-  onUpdate: (id: string, label: string) => void;
-  onDelete: (id: string) => void;
+  onUpdateTag: (id: string, label: string) => void;
+  onDeleteTag: (id: string) => void;
 };
 
 export function NoteList({
@@ -47,7 +47,11 @@ export function NoteList({
 }: NoteListProps) {
   const [selectedTags, setSelectedTags] = useState<Tag[]>([]);
   const [title, setTitle] = useState("");
+  //State selectedTags is used to store the tags that are selected currently by the user
+  //State title is used to store the value of the title input currently by the user
+
   const [show, setShow] = useState(false);
+  //State show is used to control the visibility of the modal
 
   const filteredNotes = useMemo(() => {
     return notes.filter((note) => {
@@ -102,6 +106,8 @@ export function NoteList({
                 options={availableTags.map((tag) => {
                   return { label: tag.label, value: tag.id };
                 })}
+                //The label/value pair is required by ReactSelect
+
                 onChange={(tags) => {
                   setSelectedTags(
                     tags.map((tag) => {
@@ -123,8 +129,8 @@ export function NoteList({
         ))}
       </Row>
       <EditTagsModal
-        onUpdate={onUpdateTag}
-        onDelete={onDeleteTag}
+        onUpdateTag={onUpdateTag}
+        onDeleteTag={onDeleteTag}
         show={show}
         handleClose={() => setShow(false)}
         availableTags={availableTags}
@@ -164,13 +170,14 @@ function NoteCard({ id, title, tags }: SimplifiedNote) {
     </Card>
   );
 }
+//NoteCard is a component that displays a note's title and tags
 
 function EditTagsModal({
   availableTags,
   show,
   handleClose,
-  onDelete,
-  onUpdate,
+  onDeleteTag,
+  onUpdateTag,
 }: EditTagsModalProps) {
   return (
     <Modal show={show} onHide={handleClose}>
@@ -186,13 +193,13 @@ function EditTagsModal({
                   <Form.Control
                     type="text"
                     value={tag.label}
-                    onChange={(e) => onUpdate(tag.id, e.target.value)}
+                    onChange={(e) => onUpdateTag(tag.id, e.target.value)}
                   />
                 </Col>
                 <Col xs="auto">
                   <Button
                     variant="outline-danger"
-                    onClick={() => onDelete(tag.id)}
+                    onClick={() => onDeleteTag(tag.id)}
                   >
                     &times;
                   </Button>
@@ -205,3 +212,5 @@ function EditTagsModal({
     </Modal>
   );
 }
+//EditTagsModal is a modal that displays all the tags available
+//and allows the user to edit them.

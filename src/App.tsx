@@ -101,8 +101,7 @@ function App() {
       });
     });
   }
-  //When the label of a tag is updated,
-  //update the label of all notes that use that tag to the new one.
+  //Update the tag with the specified id.
 
   function onDeleteTag(id: string) {
     setTags((prevTags) => {
