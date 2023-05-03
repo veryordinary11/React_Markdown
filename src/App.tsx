@@ -54,6 +54,7 @@ function App() {
       };
     }); // Convert RawNote to Note
   }, [notes, tags]);
+  //Each time I update the notes or tags, I need to convert RawNote to Note.
 
   function onCreateNote({ tags, ...data }: NoteData) {
     setNotes((prevNotes) => {
@@ -76,12 +77,14 @@ function App() {
       });
     });
   }
+  //Update the note with the specified id.
 
   function onDeleteNote(id: string) {
     setNotes((prevNotes) => {
       return prevNotes.filter((note) => note.id !== id);
     });
   }
+  //Delete the note with the specified id.
 
   function onAddTag(tag: Tag) {
     setTags((prevTags) => [...prevTags, tag]);
@@ -98,12 +101,15 @@ function App() {
       });
     });
   }
+  //When the label of a tag is updated,
+  //update the label of all notes that use that tag to the new one.
 
   function onDeleteTag(id: string) {
     setTags((prevTags) => {
       return prevTags.filter((tag) => tag.id !== id);
     });
   }
+  //Delete the tag with the specified id.
 
   return (
     <Container className="my-4">

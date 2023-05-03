@@ -10,6 +10,8 @@ type EditNoteProps = {
 
 export function EditNote({ onSubmit, onAddTag, availableTags }: EditNoteProps) {
   const note = useNote();
+  //Use the note with current URL's id
+
   return (
     <>
       <h1 className="mb-4">Edit Note</h1>

@@ -12,6 +12,7 @@ export function Note({ onDeleteNote }: NoteProps) {
   //Use the note with current URL's id
 
   const navigate = useNavigate();
+  //custom hook from react-router-dom, used to navigate to a new page
 
   return (
     //this is the note page, it contain a header with the title and tags of the note
@@ -25,7 +26,7 @@ export function Note({ onDeleteNote }: NoteProps) {
           {note.tags.length > 0 && (
             <Stack gap={1} direction="horizontal" className="flex-wrap">
               {note.tags.map((tag) => (
-                <Badge key={tag.id} className=" text-truncate">
+                <Badge key={tag.id} className="text-truncate">
                   {tag.label}
                 </Badge>
               ))}
